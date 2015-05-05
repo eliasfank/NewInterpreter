@@ -22,9 +22,18 @@ public class Funcoes{
 	}
 	
 	public void mostraFuncoes(){
+		System.out.println("FUNÇOES DO CÓDIGO");
 		for(int i = 0;i<funcoes.size();i++)
 			System.out.println(getFuncaoIndice(i).getNome()+": "+getFuncaoIndice(i).getInicio()+" - "+getFuncaoIndice(i).getFim());
-			
+	}
+	
+	public boolean existeVar(String vari, String funcao){
+		Funcao a = new Funcao();
+		a = getFuncaoNome(funcao);
+		if(a.tem_var(vari))
+			return true;
+		else
+			return false;
 	}
 	
 }

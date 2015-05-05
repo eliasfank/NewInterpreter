@@ -1,4 +1,4 @@
-abstract public class Var{
+public class Var{
 	private String nome;
 	private String tipo;
 	public void setNome(String n){
@@ -13,6 +13,10 @@ abstract public class Var{
 	public String getTipo(){
 		return tipo;
 	}
-	abstract public void setValor(Object a);
-	abstract public Object getValor();
+	public void setValor(Object a){
+		
+	}
+	public Object getValor(){
+		return null;
+	}
 }
