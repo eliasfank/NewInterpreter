@@ -85,6 +85,19 @@ class Interpretador {
 			return false;
 	}
 	
+	public boolean linha_comecacom_funcao(String linha){
+		int fim;
+		fim = linha.indexOf("(");
+		if(fim<0) return false;
+		linha = linha.substring(0,fim);
+		//System.out.println(linha);
+		if(funcoes.getFuncaoNome(linha) != null){
+			//System.out.println(linha);
+			return true;
+		}
+			return false;
+	}
+	
 	public String valor_da_linha(String linha){
 		if(linha.startsWith("string")){
 			int inicio, fim;
@@ -146,11 +159,18 @@ class Interpretador {
 				//System.out.println("atribuicao");
 				atribuicao(linhas[i]);
 			}
+			if(linha_comecacom_funcao(linhas[i])){
+				
+				System.out.println("\nfuncao encontrada!");
+				
+				//executaFuncao(pega_nome_funcao(linhas[i]));
+			}
 			
 		}
 		
-		System.out.println("Variaveis da "+funcao.getNome());
+		System.out.println("\nVariaveis da "+funcao.getNome());
 		funcao.mostraV();
+		System.out.println();
 	
 		Inteiro v = new Inteiro();
 		return v;
