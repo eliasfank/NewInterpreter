@@ -25,6 +25,7 @@ public class Funcoes{
 		System.out.println("\nFUNÇOES DO CÓDIGO");
 		for(int i = 0;i<funcoes.size();i++)
 			System.out.println(getFuncaoIndice(i).getNome()+": "+getFuncaoIndice(i).getInicio()+" - "+getFuncaoIndice(i).getFim());
+		System.out.println();
 	}
 	
 	public boolean existeVar(String vari, String funcao){

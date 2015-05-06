@@ -3,6 +3,7 @@ public class Funcao{
 	private int inicio;
 	private int fim;
 	private String nome;
+	private String retorno;
 	Variaveis variaveis = new Variaveis();
 	public void setInicio(int ini){
 		inicio = ini;
@@ -13,6 +14,9 @@ public class Funcao{
 	public void setNome(String n){
 		nome = n;
 	}
+	public void setRetorno(String n){
+		retorno = n;
+	}
 	public int getInicio(){
 		return inicio;
 	}
@@ -21,6 +25,9 @@ public class Funcao{
 	}
 	public String getNome(){
 		return nome;
+	}
+	public String getRetorno(){
+		return retorno;
 	}
 	//public void addOperacao(Object op){
 		//pilhaOperacoes.push((Operacao)op);

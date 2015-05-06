@@ -2,7 +2,6 @@
 	* Interpretador da Linguagem New
 	* 
  * 
- * 
  */
 
 import java.util.Scanner;
@@ -16,8 +15,6 @@ class New{
 
         b = new Interpretador();
 
-        // Lemos todas as linhas do arquivo para dentro do
-        // vetor "linhas".
         String charArray="";
         int i = 0;
         int ch;
@@ -53,12 +50,8 @@ class New{
 			}
 		}
 
-        // Inicializamos o interpretador com o vetor de linhas. A partir
-        // desse ponto, o objeto "b" irá interpretar o código lido do arquivo.
         b.interpreta(linhas);
         Object a = new Object();
         a = b.executaFuncao("main");
-        if(a instanceof Inteiro)
-			System.out.println(((Inteiro)(a)).getValor()); 
     }
 }
