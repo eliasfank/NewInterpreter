@@ -1,32 +1,41 @@
-void function fazalgo(){
+int function fazalgo(int teste){
 	int i;
-	int b;
+	int b = 5;
+	return b;
 }
 
-void main() { 
+int main() { 
 
-	int i; 
+	string xasdsadqwdq = "Elias Fank";
+	int i = 132; 
 	int j; 
+	double algum = 12.321;
 	i = 0; 
 	j = i; 
+	 
+	double adi = 1928;
+	
+	printf(adi);
+	printf(  i  );
+	 
 	 
 	while(i < 3) 
 	{ 
 		if(i == 0) { 
-			printf("Zero"); 
+			printf[Zero]; 
 		} else { 
-			printf("Outro"); 
+			printf[Outro]; 
 		} 
 		i++; 
 	} 
 	  
 	if(i == 3) { 
 		if(j == 0) { 
-			printf("Ok!"); 
+			printf[Ok!]; 
 		} else { 
-			printf("Erro"); 
+			printf[Erro]; 
 		} 
 	} 
-	
-	return 0;
+	fazalgo(12);
+	return 1;
 }
