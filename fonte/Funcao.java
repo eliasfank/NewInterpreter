@@ -4,6 +4,7 @@ public class Funcao{
 	private int fim;
 	private String nome;
 	private String retorno;
+	private ArrayList<Var> argumentos = new ArrayList<Var>();
 	Variaveis variaveis = new Variaveis();
 	public void setInicio(int ini){
 		inicio = ini;
@@ -13,6 +14,15 @@ public class Funcao{
 	}
 	public void setNome(String n){
 		nome = n;
+	}
+	public void addArgumento(String argumento){
+		String[] separa = argumento.split(" ");
+		Var a = new Var();
+		if(separa[0].equals("int"))
+		a = new Inteiro();
+		a.setNome(separa[1]);
+		a.setTipo("int");
+		argumentos.add(a);
 	}
 	public void setRetorno(String n){
 		retorno = n;
@@ -28,6 +38,9 @@ public class Funcao{
 	}
 	public String getRetorno(){
 		return retorno;
+	}
+	public ArrayList<Var> getArgumentos(){
+		return argumentos;
 	}
 	//public void addOperacao(Object op){
 		//pilhaOperacoes.push((Operacao)op);
@@ -68,6 +81,10 @@ public class Funcao{
 	}
 	public void mostraV(){
 		variaveis.mostraVars();
+	}
+	public void mostraArgumentos(){
+		for(int i = 0;i<argumentos.size();i++)
+			System.out.println(argumentos.get(i).getNome());
 	}
 	
 }

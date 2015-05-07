@@ -50,8 +50,9 @@ class New{
 			}
 		}
 
-        b.interpreta(linhas);
+        b.achaFuncoes(linhas);
         Object a = new Object();
-        a = b.executaFuncao("main");
+        String[] argss = null;
+        a = b.executaFuncao("main", argss);
     }
 }
