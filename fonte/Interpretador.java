@@ -8,7 +8,6 @@ class Interpretador {
     Funcao novafuncao = new Funcao();
 	Funcoes funcoes = new Funcoes();
 	
-	
 	public void salvaParametros(String parametros, String nomeFuncao){
 		int atual = 0;
 		if(parametros.indexOf(",") < 0){
@@ -26,8 +25,6 @@ class Interpretador {
 			}
 			funcoes.getFuncaoNome(nomeFuncao).addArgumento(parametros.substring(atual+1,parametros.length()).trim());
 		}
-	
-		
 	}
 	
     public void achaFuncoes(String l[]) {
@@ -80,7 +77,6 @@ class Interpretador {
 					
             }
         }
-	
 		//funcoes.mostraFuncoes();
 	}
 	
@@ -115,7 +111,6 @@ class Interpretador {
 			result = linha.substring(inicio, fim);
 			System.out.println(result);
 		}
-		
 		return;
 	}
 	
@@ -137,7 +132,6 @@ class Interpretador {
 		}
 		//System.out.println(processar);
 		separa = processar.split(" ");
-		
 		for(i=(separa.length-1);i>=0;i--){
 			if(i%2==0){ 
 				try{  
@@ -156,25 +150,24 @@ class Interpretador {
 							parcial = parcial * Integer.parseInt(separa[i]);break;
 					}
 					
-					}catch(Exception e){ 
-						//System.out.println("variavel: |"+separa[i]+"|");
-						//funcoes.getFuncaoNome(funcao).mostraV();
-						//System.out.println(((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor());
-						
-						switch (operador){
-							case 'i':
-								parcial = ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor(); break;
-							case '+':
-								parcial = parcial + ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
-							case '-':
-								parcial = parcial - ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
-							case '/':
-								parcial = parcial / ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
-							case '*':
-								parcial = parcial * ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
-					}
-							
-						}
+				}catch(Exception e){ 
+					//System.out.println("variavel: |"+separa[i]+"|");
+					//funcoes.getFuncaoNome(funcao).mostraV();
+					//System.out.println(((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor());
+					
+					switch (operador){
+						case 'i':
+							parcial = ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor(); break;
+						case '+':
+							parcial = parcial + ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+						case '-':
+							parcial = parcial - ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+						case '/':
+							parcial = parcial / ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+						case '*':
+							parcial = parcial * ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+					}	
+				}
 			}else{ 
 					//System.out.println("operador: "+separa[i]);
 					operador = separa[i].charAt(0);
@@ -288,6 +281,7 @@ class Interpretador {
 		}
 		return args;
 	}
+	
 	public String[] valor_parametros_da_linha(String linha, String funcao){
 		ArrayList<String> ar = new ArrayList<String>();
 		//System.out.println(linha);
@@ -372,9 +366,7 @@ class Interpretador {
 			separa = linha.split("!=");
 			a = separa[0].trim();b = separa[1].trim();
 		}
-		
 		return true;
-		
 	}
 	
     public Var executaFuncao(String nome, String argsPassados[] , String quemChamou){
@@ -383,7 +375,6 @@ class Interpretador {
 		Funcao funcao = new Funcao();
 		//System.out.println("\nFUNÇÃO: "+nome);
 		int i, inicio, fim;
-		
 		funcao = funcoes.getFuncaoNome(nome);
 		inicio = funcao.getInicio()+1;
 		fim = funcao.getFim();
@@ -456,16 +447,11 @@ class Interpretador {
 				if(ret instanceof Stringue)
 				System.out.println("Retorno da "+nome+": "+((Stringue)ret).getValor());
 			*/
-			}
-			
-		}
-		
+			}	
+		}	
 		//System.out.println("\nVariaveis da "+funcao.getNome());
 		//funcao.mostraV();
-		//System.out.println();
-		
-		return ret;
-		
+		//System.out.println();	
+		return ret;	
 	}
-
 }
