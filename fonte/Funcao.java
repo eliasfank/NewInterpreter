@@ -5,7 +5,7 @@ public class Funcao{
 	private String nome;
 	private String retorno;
 	private ArrayList<Var> argumentos = new ArrayList<Var>();
-	Variaveis variaveis = new Variaveis();
+	public Stack <Variaveis> variaveis = new Stack <Variaveis>();
 	public void setInicio(int ini){
 		inicio = ini;
 	}
@@ -14,6 +14,13 @@ public class Funcao{
 	}
 	public void setNome(String n){
 		nome = n;
+	}
+	public void adicionaListaVariaveis(){
+		Variaveis v = new Variaveis();
+		variaveis.push(v);
+	}
+	public void removeListaVariaveis(){
+		variaveis.pop();
 	}
 	public void addArgumento(String argumento){
 		String[] separa = argumento.split(" ");
@@ -51,7 +58,7 @@ public class Funcao{
 	//}
 	public boolean tem_var(String vari){
 		Var a = new Var();
-		a = variaveis.getVarNome(vari);
+		a = variaveis.peek().getVarNome(vari);
 		if(a == null)
 			return false;
 		else
@@ -63,24 +70,24 @@ public class Funcao{
 		v.setNome(vari);
 		v.setTipo("int");
 		v.setValor(valor);
-		variaveis.addVar(v);
+		variaveis.peek().addVar(v);
 	}
 	public void addDoubleFuncao(String vari, double valor){
 		Var v = new Duplo();
 		v.setNome(vari);
 		v.setTipo("double");
 		v.setValor(valor);
-		variaveis.addVar(v);
+		variaveis.peek().addVar(v);
 	}
 	public void addStringFuncao(String vari, String valor){
 		Var v = new Stringue();
 		v.setNome(vari);
 		v.setTipo("string");
 		v.setValor(valor);
-		variaveis.addVar(v);
+		variaveis.peek().addVar(v);
 	}
 	public void mostraV(){
-		variaveis.mostraVars();
+		variaveis.peek().mostraVars();
 	}
 	public void mostraArgumentos(){
 		for(int i = 0;i<argumentos.size();i++)

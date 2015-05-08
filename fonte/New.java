@@ -9,10 +9,10 @@ import java.io.*;
 
 class New{
     public static void main(String args[]) throws Exception {
+		System.out.println();
         FileReader fileReader = new FileReader(args[0]);
         Interpretador b;
         String linhas[] = new String[2000]; // arquivo pode ter, no máximo, 2000 linhas.
-
         b = new Interpretador();
 
         String charArray="";
@@ -53,6 +53,7 @@ class New{
         b.achaFuncoes(linhas);
         Object a = new Object();
         String[] argss = null;
-        a = b.executaFuncao("main", argss);
+        a = b.executaFuncao("main", argss,"");
+        System.out.println();
     }
 }

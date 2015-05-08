@@ -1,0 +1,19 @@
+int function calculaSoma(int a, int b){
+	int c;
+	c = a + b;
+	return c;
+}
+
+int main(){
+	int a = 5;
+	int b;
+	int soma;
+	
+	b=10;
+	soma = calculaSoma(a, b);
+	
+	printf[Resultado da soma de 5 + 10:];
+	printf(soma);
+	
+	return 0;
+}

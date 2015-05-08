@@ -3,9 +3,13 @@ public class Funcoes{
 	
 	private Vector <Funcao> funcoes = new Vector <Funcao>();
 	
+	
+	
 	public void addFuncao(Object f){
-		if(f instanceof Funcao)
+		if(f instanceof Funcao){
 			funcoes.add((Funcao)f);
+			((Funcao)f).adicionaListaVariaveis();
+		}
 	}
 	
 	public Funcao getFuncaoIndice(int a){
