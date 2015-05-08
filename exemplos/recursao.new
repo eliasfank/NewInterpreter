@@ -1,0 +1,23 @@
+int function fatorial(int n){
+	int aux = 0; 
+	if (n > 0) {
+		aux = 1 - n;
+		aux = fatorial(aux);
+		aux = n * aux;
+		return aux;
+	}
+	return 1;
+}
+
+int main(){
+
+	int i;
+	
+	i = fatorial(10);
+	
+	printf[fatorial de 10 é:];
+	
+	printf(i);
+
+	return 0;
+}

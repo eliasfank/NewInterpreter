@@ -1,0 +1,9 @@
+int main(){
+	string a = "Elias Fank";
+	string b = "Meu nome é:";
+	
+	printf(b);
+	printf(a);
+
+	return 0;
+}
