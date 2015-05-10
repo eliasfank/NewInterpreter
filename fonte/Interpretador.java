@@ -34,7 +34,7 @@ class Interpretador {
 		String parametros = "", nomeFuncao="", retornoFuncao="";
         for(int i = 0; i < this.linhas.length; i++) {
             if(this.linhas[i] != null) {
-               // System.out.println("Linha " + (i + 1) + ": " + this.linhas[i]);
+               //System.out.println("Linha " + (i + 1) + ": " + this.linhas[i]);
                 if(linhas[i].contains("main") || linhas[i].contains("function")){
 					if(linhas[i].contains("function")){
 						String[] separa = linhas[i].split(" ");
@@ -394,8 +394,49 @@ class Interpretador {
 		//funcoes.getFuncaoNome(nome).mostraV();
 		bloqueio = false;
 		for(i=inicio;i<fim;i++){
+			if(linhas[i].contains("while")){
+				funcoes.getFuncaoNome(nome).adicionaOperacao(linhas[i]);
+				funcoes.getFuncaoNome(nome).getOperacao().setNLinha(i);
+				if(funcoes.getFuncaoNome(nome).testaOperacao())
+					bloqueio = false;
+				else
+					bloqueio = true;
+			}
+			if(linhas[i].contains("if")){
+				funcoes.getFuncaoNome(nome).adicionaOperacao(linhas[i]);
+				
+				if(funcoes.getFuncaoNome(nome).testaOperacao()){
+					funcoes.getFuncaoNome(nome).getOperacao().setExecutado(true);
+					bloqueio = false;
+				}
+				else{
+					funcoes.getFuncaoNome(nome).getOperacao().setExecutado(false);
+					bloqueio = true;
+				}
+				
+			}
 			if(linhas[i].contains("}")){
-				bloqueio = false;
+				//System.out.println("contem");
+				//System.out.println(linhas[i]);
+				if(funcoes.getFuncaoNome(nome).getOperacao().getTipo().equals("if")){
+					if(!linhas[i+1].contains("else")){
+						funcoes.getFuncaoNome(nome).removeOperacao();
+						bloqueio = false;
+					}else{
+						if(funcoes.getFuncaoNome(nome).getOperacao().getExecutado())
+							bloqueio = true;
+						else
+							bloqueio = false;
+						i++;
+					}
+				}else
+				if(funcoes.getFuncaoNome(nome).getOperacao().getTipo().equals("while")){
+					if(funcoes.getFuncaoNome(nome).testaOperacao()){
+						i = funcoes.getFuncaoNome(nome).getOperacao().getNLinha();
+						//System.out.println(linhas[i]);
+					}else
+					funcoes.getFuncaoNome(nome).removeOperacao();
+				}
 			}
 			if(bloqueio == true) continue;
 			if(linhas[i].startsWith("int")){
@@ -422,13 +463,6 @@ class Interpretador {
 			if(linhas[i].startsWith("printf")){
 				printa(linhas[i],funcao.getNome());
 			}
-			if(linhas[i].contains("if")){
-				if(respostaIf(linhas[i], nome))
-					bloqueio = false;
-				else{
-					bloqueio = true;
-				}
-			}
 			if(linha_comecacom_var(linhas[i],nome)){
 				atribuicao(linhas[i],nome);
 			}
@@ -440,6 +474,7 @@ class Interpretador {
 				funcoes.getFuncaoNome(nome).removeListaVariaveis();
 				//if(ret instanceof Inteiro)
 				//System.out.println("Retorno da "+nome+": "+((Inteiro)ret).getValor());
+				//funcoes.getFuncaoNome(nome).mostraOperacoes();
 				return ret;
 				/*
 				if(ret instanceof Duplo)
@@ -452,6 +487,7 @@ class Interpretador {
 		//System.out.println("\nVariaveis da "+funcao.getNome());
 		//funcao.mostraV();
 		//System.out.println();	
+		//funcoes.getFuncaoNome(nome).mostraOperacoes();
 		return ret;	
 	}
 }

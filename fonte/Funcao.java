@@ -6,6 +6,8 @@ public class Funcao{
 	private String retorno;
 	private ArrayList<Var> argumentos = new ArrayList<Var>();
 	public Stack <Variaveis> variaveis = new Stack <Variaveis>();
+	private Stack <Operacao> pilhaOperacao = new Stack <Operacao>();
+	
 	public void setInicio(int ini){
 		inicio = ini;
 	}
@@ -21,6 +23,42 @@ public class Funcao{
 	}
 	public void removeListaVariaveis(){
 		variaveis.pop();
+	}
+	public void adicionaOperacao(String linha){
+		String[] separa={};
+		Operacao o = new Operacao();
+		if(linha.contains("if"))
+			o.setTipo("if");
+		else
+			o.setTipo("while");
+		linha = linha.substring(linha.indexOf("(")+1,linha.indexOf(")"));
+		if(linha.contains("==")){
+			separa = linha.split("==");
+			o.setComp("==");
+		}
+		if(linha.contains("!=")){
+			separa = linha.split("!=");
+			o.setComp("!=");
+		}
+		if(linha.contains(">")){
+			separa = linha.split(">");
+			o.setComp(">");
+		}
+		if(linha.contains("<")){
+			separa = linha.split("<");
+			o.setComp("<");
+		}
+		
+		o.setA(separa[0].trim());
+		o.setB(separa[1].trim());
+		//System.out.println("|"+o.getA()+"|");
+		//System.out.println("|"+o.getComp()+"|");
+		//System.out.println("|"+o.getB()+"|");
+		pilhaOperacao.push(o);
+	}
+	public void removeOperacao(){
+		if(!pilhaOperacao.empty())
+		pilhaOperacao.pop();
 	}
 	public void addArgumento(String argumento){
 		String[] separa = argumento.split(" ");
@@ -49,14 +87,14 @@ public class Funcao{
 	public ArrayList<Var> getArgumentos(){
 		return argumentos;
 	}
-	//public void addOperacao(Object op){
-		//pilhaOperacoes.push((Operacao)op);
-	//}
-	//public void rmOperacao(){
-		//if(! pilhaOperacoes.empty())
-		//pilhaOperacoes.pop();
-	//}
+	public Operacao getOperacao(){
+		if(pilhaOperacao.empty())
+		return null;
+		return pilhaOperacao.peek();
+	}
 	public boolean tem_var(String vari){
+		if(variaveis.empty())
+		return false;
 		Var a = new Var();
 		a = variaveis.peek().getVarNome(vari);
 		if(a == null)
@@ -93,5 +131,57 @@ public class Funcao{
 		for(int i = 0;i<argumentos.size();i++)
 			System.out.println(argumentos.get(i).getNome());
 	}
-	
+	public boolean testaOperacao(){
+		if(pilhaOperacao.empty()){
+			//System.out.println("pilha vazia");
+			return false;}
+		int ai, bi;
+		Operacao o = new Operacao();
+		o = getOperacao();
+		String a = o.getA();
+		String b = o.getB();
+		
+		if(tem_var(a))
+			ai = ((Inteiro)(variaveis.peek().getVarNome(a))).getValor();
+		else{
+			ai = Integer.parseInt(a);
+		}
+		if(tem_var(b))
+			bi = ((Inteiro)(variaveis.peek().getVarNome(b))).getValor();
+		else
+			bi = Integer.parseInt(b);
+			
+		//System.out.println("|"+ai+"|");
+		//System.out.println("|"+o.getComp()+"|");
+		//System.out.println("|"+bi+"|");
+		if(getOperacao().getComp().equals("==")){
+			if(ai==bi)
+				return true;
+		}
+		if(getOperacao().getComp().equals("!=")){
+			if(ai!=bi)
+				return true;
+		}
+		if(getOperacao().getComp().equals(">")){
+			if(ai>bi)
+				return true;
+		}
+		if(getOperacao().getComp().equals("<")){
+			if(ai<bi)
+				return true;
+		}
+			
+
+		return false;
+	}
+	public void mostraOperacoes(){
+		if(pilhaOperacao.empty()){
+			System.out.println("pilha vazia!");
+			return;
+		}
+		while(!pilhaOperacao.empty()){
+			System.out.println(getOperacao().getA()+getOperacao().getComp()+getOperacao().getB()+" "+getOperacao().getTipo());
+			pilhaOperacao.pop();
+		}
+	}
 }

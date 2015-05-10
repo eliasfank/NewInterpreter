@@ -15,6 +15,8 @@ public class Variaveis{
 	}
 	
 	public Var getVarNome(String a){
+		if (a == null)
+		return null;
 		for(int i = 0;i<variaveis.size();i++)
 			if(a.equals(getVarIndice(i).getNome()))
 				return variaveis.elementAt(i);

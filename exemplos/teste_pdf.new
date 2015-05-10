@@ -1,0 +1,25 @@
+int main() { 
+	int i; 
+	int j; 
+	i = 0; 
+	j = i; 
+ 
+	while(i < 3) { 
+		if(i == 0) { 
+			printf[Zero]; 
+		}
+		 else 
+		{ 
+			printf[Outro]; 
+		} 
+		i = 1 + i; 
+	} 
+ 
+	if(i == 3) { 
+		if(j == 0) { 
+			printf[Ok!]; 
+		} else { 
+			printf[Erro]; 
+		} 
+	} 
+}

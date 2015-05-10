@@ -1,0 +1,20 @@
+int main(){
+	int a = 15;
+	int b = 10;
+	
+	printf[a é];
+	printf(a);
+	printf[b é];
+	printf(b);
+	
+	printf[a é maior que b? ];
+	printf[];
+	
+	if( a > b ){
+		printf[Sim];
+	}else{
+		printf(b);
+	}
+		
+	return 0;
+}

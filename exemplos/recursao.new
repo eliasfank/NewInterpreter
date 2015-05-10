@@ -1,6 +1,6 @@
 int function fatorial(int n){
 	int aux = 0; 
-	if (n > 0) {
+	if (n>0) {
 		aux = 1 - n;
 		aux = fatorial(aux);
 		aux = n * aux;
