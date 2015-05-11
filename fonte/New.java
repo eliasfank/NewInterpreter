@@ -1,6 +1,10 @@
 /**
 	* Interpretador da Linguagem New
+	* Trata-se de um trabalho da Matéria ProgramaçãoI da UFFS
 	* 
+	* Criado por:
+	* Elias Fank  // email: "eliasfank@hotmail.com"
+	* Leonardo Mantovani  // email: "mantovani28@gmail.com"
  * 
  */
 
