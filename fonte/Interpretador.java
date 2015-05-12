@@ -17,7 +17,7 @@ class Interpretador {
 		else{
 			String[] separa = parametros.split(",");
 			for (int i =0; i<separa.length;i++){
-				System.out.println(separa[i].trim());
+				//System.out.println(separa[i].trim());
 				funcoes.getFuncaoNome(nomeFuncao).addArgumento(separa[i].trim());
 			}
 		}
@@ -347,7 +347,7 @@ class Interpretador {
 		}else{
 			String[] separa = linha.split(",");
 			for(int i =0; i < separa.length ; i++){
-				System.out.println(separa[i].trim());
+				//System.out.println(separa[i].trim());
 				ar.add(separa[i].trim());
 			}
 		}
@@ -431,7 +431,7 @@ class Interpretador {
 		String[] argumentosFuncao = pegaArgumentos(nome);
 		if(argsPassados != null)
 		for(int aux = 0; aux < argsPassados.length ; aux++){
-			System.out.println("!"+argumentosFuncao[aux]+"!");
+			//System.out.println("!"+argumentosFuncao[aux]+"!");
 			if(funcoes.existeVar(argumentosFuncao[aux],nome))
 				if(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]).getTipo().equals("int"))
 					((Inteiro)(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]))).setValor(Integer.parseInt(argsPassados[aux]));
