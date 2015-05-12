@@ -135,39 +135,54 @@ public class Funcao{
 		if(pilhaOperacao.empty()){
 			//System.out.println("pilha vazia");
 			return false;}
-		int ai, bi;
+		double ad, bd;
 		Operacao o = new Operacao();
 		o = getOperacao();
 		String a = o.getA();
 		String b = o.getB();
 		
-		if(tem_var(a))
-			ai = ((Inteiro)(variaveis.peek().getVarNome(a))).getValor();
-		else{
-			ai = Integer.parseInt(a);
+		if(tem_var(a)){
+			if(variaveis.peek().getVarNome(a).getTipo().equals("int"))
+				ad = ((Inteiro)(variaveis.peek().getVarNome(a))).getValor();
+			else
+				ad = ((Duplo)(variaveis.peek().getVarNome(a))).getValor();
+		}else{
+			try{
+				ad = Integer.parseInt(a);
+			}catch(Exception e){
+				ad = Double.parseDouble(a);
+			}
 		}
-		if(tem_var(b))
-			bi = ((Inteiro)(variaveis.peek().getVarNome(b))).getValor();
-		else
-			bi = Integer.parseInt(b);
+		if(tem_var(b)){
+			if(variaveis.peek().getVarNome(a).getTipo().equals("int"))
+				bd = ((Inteiro)(variaveis.peek().getVarNome(b))).getValor();
+			else
+				bd = ((Duplo)(variaveis.peek().getVarNome(b))).getValor();
+		}else{
+			try{
+				bd = Integer.parseInt(b);
+			}catch(Exception e){
+				bd = Double.parseDouble(b);
+			}
+		}
 			
 		//System.out.println("|"+ai+"|");
 		//System.out.println("|"+o.getComp()+"|");
 		//System.out.println("|"+bi+"|");
 		if(getOperacao().getComp().equals("==")){
-			if(ai==bi)
+			if(ad==bd)
 				return true;
 		}
 		if(getOperacao().getComp().equals("!=")){
-			if(ai!=bi)
+			if(ad!=bd)
 				return true;
 		}
 		if(getOperacao().getComp().equals(">")){
-			if(ai>bi)
+			if(ad>bd)
 				return true;
 		}
 		if(getOperacao().getComp().equals("<")){
-			if(ai<bi)
+			if(ad<bd)
 				return true;
 		}
 			

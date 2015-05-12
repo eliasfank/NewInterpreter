@@ -9,21 +9,17 @@ class Interpretador {
 	Funcoes funcoes = new Funcoes();
 	
 	public void salvaParametros(String parametros, String nomeFuncao){
-		int atual = 0;
+		
 		if(parametros.indexOf(",") < 0){
 			//System.out.println(parametros);
 			funcoes.getFuncaoNome(nomeFuncao).addArgumento(parametros);
 		}
 		else{
-			atual = parametros.indexOf(",");
-			while(atual != -1){
-				funcoes.getFuncaoNome(nomeFuncao).addArgumento(parametros.substring(0,atual));
-				if(parametros.indexOf(",",atual+1)!=-1)
-				atual = parametros.indexOf(",",atual+1);
-				else
-				break;
+			String[] separa = parametros.split(",");
+			for (int i =0; i<separa.length;i++){
+				System.out.println(separa[i].trim());
+				funcoes.getFuncaoNome(nomeFuncao).addArgumento(separa[i].trim());
 			}
-			funcoes.getFuncaoNome(nomeFuncao).addArgumento(parametros.substring(atual+1,parametros.length()).trim());
 		}
 	}
 	
@@ -116,22 +112,32 @@ class Interpretador {
 	
 	public void atribuicao(String linha, String funcao){
 		//System.out.println("=================================");
-		int i,parcial=0;
+		int i;
+		double parcial=0;
 		char operador='i';
 		String[] separa = linha.split("=");
 		String varDestino, processar;
 		varDestino = separa[0].trim();
 		processar = separa[1].trim();
 		processar = processar.substring(0,processar.indexOf(";"));
+		processar = processar.replaceAll("\\+"," + " );
+		processar = processar.replaceAll("\\-"," - " );
+		processar = processar.replaceAll("\\/"," / " );
+		processar = processar.replaceAll("\\*"," * " );
+		processar = processar.replaceAll("\\%"," % " );
 		if(processar.contains("(")){
 			Var v = new Var();
 			//System.out.println("funaaaaao");
 			v = executaFuncao(pega_nome_funcao(processar), valor_parametros_da_linha(processar, funcao), funcao);
-			funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(((Inteiro)(v)).getValor());
+			if(v instanceof Inteiro)
+				funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(((Inteiro)(v)).getValor());
+			if(v instanceof Duplo)
+				funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(((Duplo)(v)).getValor());
 			return;
 		}
 		//System.out.println(processar);
-		separa = processar.split(" ");
+		separa = processar.split(" ( )?");
+		//for(i=0;i<separa.length;i++) {separa[i] = separa[i].trim(); System.out.println("|"+separa[i]+"|");}
 		for(i=(separa.length-1);i>=0;i--){
 			if(i%2==0){ 
 				try{  
@@ -148,24 +154,65 @@ class Interpretador {
 							parcial = parcial / Integer.parseInt(separa[i]);break;
 						case '*':
 							parcial = parcial * Integer.parseInt(separa[i]);break;
-					}
+						case '%':
+							parcial = parcial % Integer.parseInt(separa[i]);break;
+					}	
 					
 				}catch(Exception e){ 
 					//System.out.println("variavel: |"+separa[i]+"|");
 					//funcoes.getFuncaoNome(funcao).mostraV();
 					//System.out.println(((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor());
-					
+					try{
+						Double.parseDouble(separa[i]); 
 					switch (operador){
 						case 'i':
-							parcial = ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor(); break;
+							parcial = Double.parseDouble(separa[i]); break;
 						case '+':
-							parcial = parcial + ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+							parcial = parcial + Double.parseDouble(separa[i]);break;
 						case '-':
-							parcial = parcial - ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+							parcial = parcial - Double.parseDouble(separa[i]);break;
 						case '/':
-							parcial = parcial / ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+							parcial = parcial / Double.parseDouble(separa[i]);break;
 						case '*':
-							parcial = parcial * ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;
+							parcial = parcial * Double.parseDouble(separa[i]);break;
+						case '%':
+							parcial = parcial % Double.parseDouble(separa[i]);break;
+					}
+						
+					}catch(Exception f){
+					
+						switch (operador){
+							case 'i':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){
+									parcial = ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor(); break;}
+								else{
+									parcial = ((Duplo)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor(); break;}
+							case '+':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){
+									parcial = parcial + ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+								else{
+									parcial = parcial + ((Duplo)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+							case '-':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){
+									parcial = parcial - ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+								else{
+									parcial = parcial - ((Duplo)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+							case '/':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){	
+									parcial = parcial / ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+								else{
+									parcial = parcial / ((Duplo)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+							case '*':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){
+									parcial = parcial * ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+								else{
+									parcial = parcial * ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+							case '%':
+								if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]).getTipo().equals("int")){
+									parcial = parcial % ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+								else{
+									parcial = parcial % ((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(separa[i]))).getValor();break;}
+							}
 					}	
 				}
 			}else{ 
@@ -174,7 +221,10 @@ class Interpretador {
 			}
 		}
 		//System.out.println(parcial);
-		funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(parcial);
+		if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).getTipo().equals("int"))
+			funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(((Double)(parcial)).intValue());
+		else
+			funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(varDestino).setValor(parcial);
 		//System.out.println("=================================");
 		return;
 	}
@@ -291,26 +341,24 @@ class Interpretador {
 		linha = linha.substring(inicio,fim);
 		if(inicio == fim)
 			return null;
-		int atual = 0;
 		if(linha.indexOf(",") < 0){
 			//System.out.println(linha);
-			ar.add(linha.trim());		}
-		else{
-			atual = linha.indexOf(",");
-			while(atual != -1){
-				ar.add(linha.substring(0,atual).trim());
-				if(linha.indexOf(",",atual+1)!=-1)
-				atual = linha.indexOf(",",atual+1);
-				else
-				break;
+			ar.add(linha.trim());		
+		}else{
+			String[] separa = linha.split(",");
+			for(int i =0; i < separa.length ; i++){
+				System.out.println(separa[i].trim());
+				ar.add(separa[i].trim());
 			}
-			ar.add(linha.substring(atual+1,linha.length()).trim());
 		}
 		String[] a = new String[ar.size()];
 		for(int i=0;i<ar.size();i++){
-			if(funcoes.existeVar(ar.get(i),funcao))
-				a[i] = Integer.toString(((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(ar.get(i)))).getValor());
-			else
+			if(funcoes.existeVar(ar.get(i),funcao)){
+				if(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(ar.get(i)).getTipo().equals("int"))
+					a[i] = Integer.toString(((Inteiro)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(ar.get(i)))).getValor());
+				else
+					a[i] = Double.toString(((Duplo)(funcoes.getFuncaoNome(funcao).variaveis.peek().getVarNome(ar.get(i)))).getValor());
+			}else
 				a[i] = ar.get(i);
             //System.out.println(a[i]);
         }
@@ -383,12 +431,19 @@ class Interpretador {
 		String[] argumentosFuncao = pegaArgumentos(nome);
 		if(argsPassados != null)
 		for(int aux = 0; aux < argsPassados.length ; aux++){
-			//System.out.println("!"+argumentosFuncao[aux]+"!");
+			System.out.println("!"+argumentosFuncao[aux]+"!");
 			if(funcoes.existeVar(argumentosFuncao[aux],nome))
-				((Inteiro)(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]))).setValor(Integer.parseInt(argsPassados[aux]));
+				if(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]).getTipo().equals("int"))
+					((Inteiro)(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]))).setValor(Integer.parseInt(argsPassados[aux]));
+				else
+					((Duplo)(funcoes.getFuncaoNome(nome).variaveis.peek().getVarNome(argumentosFuncao[aux]))).setValor(Double.parseDouble(argsPassados[aux]));
 			else{
 				//System.out.println(argsPassados[aux]);
-				funcao.addIntFuncao(argumentosFuncao[aux],Integer.parseInt(argsPassados[aux]));
+				try{
+					funcao.addIntFuncao(argumentosFuncao[aux],Integer.parseInt(argsPassados[aux]));
+				}catch(Exception e){
+					funcao.addDoubleFuncao(argumentosFuncao[aux],Double.parseDouble(argsPassados[aux]));
+				}
 			}
 		}
 		//funcoes.getFuncaoNome(nome).mostraV();
@@ -472,6 +527,8 @@ class Interpretador {
 			if(linhas[i].startsWith("return")){
 				ret = retorna(linhas[i], nome);
 				funcoes.getFuncaoNome(nome).removeListaVariaveis();
+				if(!nome.equals(quemChamou))
+					funcoes.getFuncaoNome(nome).adicionaListaVariaveis();
 				//if(ret instanceof Inteiro)
 				//System.out.println("Retorno da "+nome+": "+((Inteiro)ret).getValor());
 				//funcoes.getFuncaoNome(nome).mostraOperacoes();
