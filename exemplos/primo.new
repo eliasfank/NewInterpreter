@@ -1,0 +1,44 @@
+int function quantosDivisores(int n){
+	int decrementa;
+	decrementa = n;
+	int cont = 0;
+	double auxiliar;
+	
+	while(decrementa > 0){
+		auxiliar = decrementa % n;
+		if(auxiliar == 0){
+			cont = cont + 1;
+		}
+		decrementa = 1 - decrementa;
+	}
+	
+	return cont;
+}
+
+int main(){
+
+	int n;
+	int teste;
+	
+	n = 140;
+	printf(n);
+	teste = quantosDivisores(n);
+	
+	if(teste>2){
+		printf[não é primo!];
+	}else{
+		printf[é primo!];
+	}
+	
+	n = 131;
+	printf(n);
+	teste = quantosDivisores(n);
+	
+	if(teste>2){
+		printf[não é primo!];
+	}else{
+		printf[é primo!];
+	}
+
+	return 0;
+}

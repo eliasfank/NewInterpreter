@@ -1,0 +1,20 @@
+double function calculaMedia(double a, double b, double c){
+	double soma;
+	soma = a+b+c;
+	double media;
+	media = 3/soma;
+	return media;
+}
+int main(){
+	
+	double a = 4;
+	double b = 6;
+	double c = 13;
+	double media;
+	
+	media = calculaMedia(a, b, c);
+	
+	printf(media);
+
+	return 0;
+}

@@ -1,6 +1,6 @@
 int main(){
-	string a = "Elias Fank";
-	string b = "Meu nome é:";
+	string a = "Fernando";
+	string b = "O nome do Professor é:";
 	
 	printf(b);
 	printf(a);
