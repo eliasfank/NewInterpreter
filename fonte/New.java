@@ -23,34 +23,36 @@ class New{
         int i = 0;
         int ch;
         char c;
-        while ((ch = fileReader.read()) != -1) {
+        while ((ch = fileReader.read()) != -1) {   // le o arquivo caracter por caracter
 			c = ((char)ch);
-			if(c == '\n' || c=='	')
+			
+			if(c == '\n' || c=='	') //tira todos enter e tabs do código
 				c=' ';
-				
-			if(charArray != "" && charArray.charAt(charArray.length()-1) == ' ' && c== ' '){
-			}
+	
+			if(charArray != "" && charArray.charAt(charArray.length()-1) == ' ' && c== ' '){ // caso o ultimo caracter da linha ja tiver um espaço
+				continue;																	 // nao adiciona espaço novamente
+			}																				 
 			else
-			if(charArray == "" && c==' ')
-				charArray = "";
+			if(charArray == "" && c==' ')// impede que uma linha comece com espaço
+				charArray = "";				
 			else{
 			if(c == '{'){
-				charArray+=c;
-				linhas[i++] = charArray;
+				charArray+=c;				//quando encontra um abre chaves
+				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
 			}else
 			if(c == '}'){
-				charArray+=c;
-				linhas[i++] = charArray;
+				charArray+=c;				//quando encontra um fecha chaves
+				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
 			}else
 			if(c == ';'){
-				charArray+=c;
-				linhas[i++] = charArray;
+				charArray+=c;				//quando encontra um ;
+				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
 			}else
-			charArray+=c;
-			
+			charArray+=c;					//se nenhuma das opçoes acima
+											//concatena o caracter no final da linha
 			}
 		}
 

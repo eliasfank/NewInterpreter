@@ -5,8 +5,15 @@ public class Funcao{
 	private String nome;
 	private String retorno;
 	private ArrayList<Var> argumentos = new ArrayList<Var>();
-	public Stack <Variaveis> variaveis = new Stack <Variaveis>();
+	private Stack <Variaveis> variaveis = new Stack <Variaveis>();
 	private Stack <Operacao> pilhaOperacao = new Stack <Operacao>();
+	
+	public Variaveis getListaVariaveis(){
+		if(!variaveis.empty())
+			return variaveis.peek();
+		else
+		return null;
+	}
 	
 	public void setInicio(int ini){
 		inicio = ini;
