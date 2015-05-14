@@ -410,46 +410,46 @@ class Interpretador {
 		for(i=inicio;i<fim;i++){
 			
 			if(linhas[i].contains("while")){
-				getFuncaoNome(nome).adicionaOperacao(linhas[i]);
-				getFuncaoNome(nome).getOperacao().setNLinha(i);
-				if(getFuncaoNome(nome).testaOperacao())
+				getFuncaoNome(nome).adicionaFluxo(linhas[i]);
+				getFuncaoNome(nome).getFluxo().setNLinha(i);
+				if(getFuncaoNome(nome).testaFluxo())
 					bloqueio = false;
 				else
 					bloqueio = true;
 			}
 			
 			if(linhas[i].contains("if")){
-				getFuncaoNome(nome).adicionaOperacao(linhas[i]);
+				getFuncaoNome(nome).adicionaFluxo(linhas[i]);
 				
-				if(getFuncaoNome(nome).testaOperacao()){
-					getFuncaoNome(nome).getOperacao().setExecutado(true);
+				if(getFuncaoNome(nome).testaFluxo()){
+					getFuncaoNome(nome).getFluxo().setExecutado(true);
 					bloqueio = false;
 				}
 				else{
-					getFuncaoNome(nome).getOperacao().setExecutado(false);
+					getFuncaoNome(nome).getFluxo().setExecutado(false);
 					bloqueio = true;
 				}
 				
 			}
 			
 			if(linhas[i].contains("}")){
-				if(getFuncaoNome(nome).getOperacao().getTipo().equals("if")){
+				if(getFuncaoNome(nome).getFluxo().getTipo().equals("if")){
 					if(!linhas[i+1].contains("else")){
-						getFuncaoNome(nome).removeOperacao();
+						getFuncaoNome(nome).removeFluxo();
 						bloqueio = false;
 					}else{
-						if(getFuncaoNome(nome).getOperacao().getExecutado())
+						if(getFuncaoNome(nome).getFluxo().getExecutado())
 							bloqueio = true;
 						else
 							bloqueio = false;
 						i++;
 					}
 				}else
-				if(getFuncaoNome(nome).getOperacao().getTipo().equals("while")){
-					if(getFuncaoNome(nome).testaOperacao()){
-						i = getFuncaoNome(nome).getOperacao().getNLinha();
+				if(getFuncaoNome(nome).getFluxo().getTipo().equals("while")){
+					if(getFuncaoNome(nome).testaFluxo()){
+						i = getFuncaoNome(nome).getFluxo().getNLinha();
 					}else
-					getFuncaoNome(nome).removeOperacao();
+					getFuncaoNome(nome).removeFluxo();
 				}
 			}
 			

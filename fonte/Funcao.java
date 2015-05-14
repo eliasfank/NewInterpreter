@@ -6,7 +6,7 @@ public class Funcao{
 	private String retorno;
 	private ArrayList<Var> argumentos = new ArrayList<Var>();
 	private Stack <Variaveis> variaveis = new Stack <Variaveis>();
-	private Stack <Operacao> pilhaOperacao = new Stack <Operacao>();
+	private Stack <Fluxo> pilhaFluxo = new Stack <Fluxo>();
 	
 	public Variaveis getListaVariaveis(){
 		if(!variaveis.empty())
@@ -36,9 +36,9 @@ public class Funcao{
 		variaveis.pop();
 	}
 	
-	public void adicionaOperacao(String linha){
+	public void adicionaFluxo(String linha){
 		String[] separa={};
-		Operacao o = new Operacao();
+		Fluxo o = new Fluxo();
 		
 		if(linha.contains("if"))
 			o.setTipo("if");
@@ -69,12 +69,12 @@ public class Funcao{
 		
 		o.setA(separa[0].trim());
 		o.setB(separa[1].trim());
-		pilhaOperacao.push(o);
+		pilhaFluxo.push(o);
 	}
 	
-	public void removeOperacao(){
-		if(!pilhaOperacao.empty())
-		pilhaOperacao.pop();
+	public void removeFluxo(){
+		if(!pilhaFluxo.empty())
+		pilhaFluxo.pop();
 	}
 	
 	public void addArgumento(String argumento){
@@ -120,10 +120,10 @@ public class Funcao{
 		return argumentos;
 	}
 	
-	public Operacao getOperacao(){
-		if(pilhaOperacao.empty())
+	public Fluxo getFluxo(){
+		if(pilhaFluxo.empty())
 		return null;
-		return pilhaOperacao.peek();
+		return pilhaFluxo.peek();
 	}
 	
 	public boolean temVar(String vari){
@@ -161,13 +161,13 @@ public class Funcao{
 		variaveis.peek().addVar(v);
 	}
 	
-	public boolean testaOperacao(){
-		if(pilhaOperacao.empty())
+	public boolean testaFluxo(){
+		if(pilhaFluxo.empty())
 			return false;
 			
 		double ad, bd;
-		Operacao o = new Operacao();
-		o = getOperacao();
+		Fluxo o = new Fluxo();
+		o = getFluxo();
 		String a = o.getA();
 		String b = o.getB();
 		
@@ -197,22 +197,22 @@ public class Funcao{
 				}
 		}
 			
-		if(getOperacao().getComp().equals("==")){
+		if(getFluxo().getComp().equals("==")){
 			if(ad==bd)
 				return true;
 		}
 		
-		if(getOperacao().getComp().equals("!=")){
+		if(getFluxo().getComp().equals("!=")){
 			if(ad!=bd)
 				return true;
 		}
 		
-		if(getOperacao().getComp().equals(">")){
+		if(getFluxo().getComp().equals(">")){
 			if(ad>bd)
 				return true;
 		}
 		
-		if(getOperacao().getComp().equals("<")){
+		if(getFluxo().getComp().equals("<")){
 			if(ad<bd)
 				return true;
 		}

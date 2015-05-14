@@ -1,5 +1,5 @@
 import java.util.*;
-public class Operacao{
+public class Fluxo{
 	private String A;
 	private String B;
 	private String comp;
