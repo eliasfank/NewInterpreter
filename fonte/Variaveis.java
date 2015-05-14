@@ -22,11 +22,5 @@ public class Variaveis{
 				return variaveis.elementAt(i);
 		return null;
 	}
-	
-	public void mostraVars(){
-		for(int i = 0;i<variaveis.size();i++)
-			System.out.println(getVarIndice(i).getNome()+": "+getVarIndice(i).getTipo()+" - "+getVarIndice(i).getValor());
-			
-	}
 
 }

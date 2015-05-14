@@ -31,32 +31,38 @@ class New{
 	
 			if(charArray != "" && charArray.charAt(charArray.length()-1) == ' ' && c== ' '){ // caso o ultimo caracter da linha ja tiver um espaço
 				continue;																	 // nao adiciona espaço novamente
-			}																				 
+			}	
+																						 
 			else
 			if(charArray == "" && c==' ')// impede que uma linha comece com espaço
-				charArray = "";				
+				charArray = "";	
+							
 			else{
 			if(c == '{'){
 				charArray+=c;				//quando encontra um abre chaves
 				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
+			
 			}else
 			if(c == '}'){
 				charArray+=c;				//quando encontra um fecha chaves
 				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
+			
 			}else
 			if(c == ';'){
 				charArray+=c;				//quando encontra um ;
 				linhas[i++] = charArray;	//guarda a linha
 				charArray = "";
 			}else
+			
 			charArray+=c;					//se nenhuma das opçoes acima
 											//concatena o caracter no final da linha
 			}
 		}
 
-        b.achaFuncoes(linhas);
+		b.setLinhas(linhas);
+        b.achaFuncoes();
         Object a = new Object();
         String[] argss = null;
         a = b.executaFuncao("main", argss,"");
