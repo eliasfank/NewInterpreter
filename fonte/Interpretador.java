@@ -410,18 +410,37 @@ class Interpretador {
 		for(i=inicio;i<fim;i++){
 			
 			if(linhas[i].contains("while")){
+				
+				boolean anterior = true;
+				if(getFuncaoNome(nome).getFluxo() != null){
+					
+					if(getFuncaoNome(nome).testaFluxo())
+						anterior = true;
+					else
+						anterior = false;
+				}
+				
 				getFuncaoNome(nome).adicionaFluxo(linhas[i]);
 				getFuncaoNome(nome).getFluxo().setNLinha(i);
-				if(getFuncaoNome(nome).testaFluxo())
+				if(getFuncaoNome(nome).testaFluxo() && anterior)
 					bloqueio = false;
 				else
 					bloqueio = true;
 			}
 			
 			if(linhas[i].contains("if")){
-				getFuncaoNome(nome).adicionaFluxo(linhas[i]);
 				
-				if(getFuncaoNome(nome).testaFluxo()){
+				boolean anterior = true;
+				if(getFuncaoNome(nome).getFluxo() != null){
+					
+					if(getFuncaoNome(nome).testaFluxo())
+						anterior = true;
+					else
+						anterior = false;
+				}
+				
+				getFuncaoNome(nome).adicionaFluxo(linhas[i]);
+				if(getFuncaoNome(nome).testaFluxo() && anterior){
 					getFuncaoNome(nome).getFluxo().setExecutado(true);
 					bloqueio = false;
 				}

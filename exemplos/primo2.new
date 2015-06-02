@@ -17,28 +17,26 @@ int function quantosDivisores(int n){
 
 int main(){
 
-	int n;
+	int n; int cont; int contprints;
+	cont = 0;
+	contprints=0;
 	int teste;
+	int a;int b;
+	n = 1; a = 2; b = 5;
 	
-	n = 4;
-	printf(n);
-	teste = quantosDivisores(n);
+	while(contprints < b){
+		teste = quantosDivisores(n);
+		if(teste < 3){
+			cont = cont + 1;
+			if(cont > a){
+				printf(n);
+				contprints = contprints + 1;
+			}
+		}
+		n=n+1;
+	} 
+
 	
-	if(teste>2){
-		printf[não é primo!];
-	}else{
-		printf[é primo!];
-	}
-	
-	n = 13;
-	printf(n);
-	teste = quantosDivisores(n);
-	
-	if(teste>2){
-		printf[não é primo!];
-	}else{
-		printf[é primo!];
-	}
 
 	return 0;
 }

@@ -13,7 +13,7 @@ int main(){
 
 	int i;
 	
-	i = fatorial(10);
+	i = fatorial(4);
 	
 	printf[fatorial de 10 é:];
 	
